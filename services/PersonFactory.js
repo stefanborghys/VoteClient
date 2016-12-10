@@ -11,17 +11,11 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', '$rootScope', function
      * @return true when successfull, otherwise false
      */
     methods.register = function(person) {
-        $log.debug("Entering PersonFactory");
         return $http({
             method: 'POST',
             url: 'http://127.0.0.1:8080/person/register/',
             // TODO: replace this example data Object by the person argument
-            data: {
-                "firstName": person.firstName,
-                "lastName": person.lastName,
-                "email": person.email,
-                "password": person.password
-            }
+            data: person
         }).then(function successCallback(response) {
             // TODO: this POST request only return the 200 status code to indicate the registration was successfull
             $log.debug("Registered successfully");
@@ -62,24 +56,22 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', '$rootScope', function
     methods.authenticate = function(email, password) {
         return $http({
             method: 'POST',
-            url: 'http://127.0.0.1:8080/person/register/',
+            url: 'http://127.0.0.1:8080/person/authenticate/',
             // TODO: replace this example data Object by the arguments
             data: {
-                "email": "eddy@wally.be",
-                "password": "12345"
+                "email": email,
+                "password": password
             }
         }).then(function successCallback(response) {
-            authenticatedPerson = response.data;
-            notify();
-
-
+            // TODO: implement properly
             $log.debug("Authenticated successfully");
+            $log.debug(JSON.stringify(response));
             return {
-                "success": true,
-                "id": "582e220773775886298f8694",
-                "firstName": "eddie",
-                "lastName": "wally",
-                "email": "eddy@wally.be"
+                "success": response.data.success,
+                "id": response.data.status,
+                "firstName": response.data.firstName,
+                "lastName": response.data.lastName,
+                "email": response.data.email
             };
         }, function errorCallback(response) {
             // TODO: create a proper fallback when authentication fails

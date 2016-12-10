@@ -3,6 +3,84 @@
     <li><a ui-sref="user_ideas">Proposed Ideas</a></li>
 </ol>
 <hr/>
-<div>
-    {{message}}
+<div class="panel panel-default" ng-controller="ProposedIdeasController">
+    <div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Create idea</div>
+    <div class="panel-body">
+        <form name="idea_form" class="form-horizontal" novalidate>
+            <div ng-hide="idea_form.$submitted">
+                <div ng-class="{'form-group form-group-ms has-feedback':true, 'has-error':idea_form.title.$error.required && idea_form.title.$touched, 'has-success':!idea_form.title.$error.required}">
+                    <label for="title" class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="idea.title" type="text" class="form-control input-sm" id="title" name="title" placeholder="Title" required>
+                        <span ng-show="idea_form.title.$error.required && idea_form.title.$touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="!idea_form.title.$error.required && !idea_form.title.$error.minlength" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="idea_form.$submitted || idea_form.title.$touched">
+                            <div class="has-error">
+                                <span ng-show="idea_form.title.$error.required">The title is mandatory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="{'form-group form-group-ms has-feedback':true, 'has-error':idea_form.description.$error.required && idea_form.description.$touched, 'has-success':!idea_form.description.$error.required}">
+                    <label for="description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <textarea ng-model="idea.description" type="textarea" class="form-control input-sm" id="description" name="description" placeholder="Description" required></textarea>
+                        <span ng-show="idea_form.description.$error.required && idea_form.description.$touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="!idea_form.description.$error.required && !idea_form.description.$error.minlength" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="idea_form.$submitted || idea_form.description.$touched">
+                            <div class="has-error">
+                                <span ng-show="idea_form.description.$error.required">The description is mandatory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="{'form-group form-group-ms has-feedback':true, 'has-error':idea_form.startDate.$error.required && idea_form.startDate.$touched, 'has-success':!idea_form.startDate.$error.required}">
+                    <label for="startDate" class="col-sm-2 control-label">Start date</label>
+                    <div class="col-sm-4">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="startDate" type="date" class="form-control input-sm" id="startDate" name="startDate" placeholder="Start date" required>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="idea_form.$submitted || idea_form.startDate.$touched">
+                            <div class="has-error">
+                                <span ng-show="idea_form.startDate.$error.required">The start date is mandatory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="{'form-group form-group-ms has-feedback':true, 'has-error':idea_form.deadline.$error.required && idea_form.deadline.$touched, 'has-success':!idea_form.deadline.$error.required}">
+                    <label for="deadline" class="col-sm-2 control-label">Deadline</label>
+                    <div class="col-sm-4">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="deadline" type="date" class="form-control input-sm" id="deadline" name="deadline" placeholder="Deadline" required>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="idea_form.$submitted || idea_form.deadline.$touched">
+                            <div class="has-error">
+                                <span ng-show="idea_form.deadline.$error.required">The deadline is mandatory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-sm-12">
+                    <label for="options" class="col-sm-2 control-label">Options</label>
+                    <div ng-repeat="option in idea.options" id="options">
+                        <div class="col-sm-10">
+                            {{option.label}} {{option.description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-sm-12">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2">
+                        <button ng-disabled="!idea_form.$valid" ng-click="createIdea();" type="submit" class="btn btn-info">Create</button>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+            </div>
+        </form>
+    </div>
 </div>

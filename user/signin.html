@@ -3,6 +3,49 @@
     <li><a ui-sref="user_sign_in">Sign in</a></li>
 </ol>
 <hr/>
-<div>
-    {{message}}
+<div ng-controller="SignInController as signInController">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>User sign in</div>
+        <div class="panel-body">
+            <form name="login_user_form" class="form-horizontal" novalidate>
+                <div ng-class="{'form-group form-group-ms has-feedback':true, 'has-error':login_user_form.email.$error.required && login_user_form.email.$touched, 'has-success':!login_user_form.email.$error.required}">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="userToAuthenticate.email" type="text" class="form-control input-sm" id="email" name="email" placeholder="Email" required>
+                        <!-- Note: combines ng-show with Bootstrap's form icons -->
+                        <span ng-show="login_user_form.email.$error.required && login_user_form.email.$touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="!login_user_form.email.$error.required" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="login_user_form.$submitted || login_user_form.email.$touched">
+                            <div class="has-error">
+                                <span ng-show="login_user_form.email.$error.required">The email is mandatory for login</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="{ 'form-group form-group-ms has-feedback':true, 'has-error':login_user_form.password.$error.required && login_user_form.password.$touched, 'has-success':!login_user_form.password.$error.required} ">
+                    <label for="password" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10 ">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="userToAuthenticate.password" type="password" class="form-control input-sm" id="password" name="password" placeholder="Password" required>
+                        <!-- Note: combines ng-show with Bootstrap's form icons -->
+                        <span ng-show="login_user_form.password.$error.required && login_user_form.password.$touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="!login_user_form.password.$error.required" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="login_user_form.$submitted || login_user_form.password.$touched">
+                            <div class="has-error">
+                                <span ng-show="login_user_form.password.$error.required">The password is mandatory for login</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div>
+                        <button type="submit" class="btn" ng-click="signInController.signIn();">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

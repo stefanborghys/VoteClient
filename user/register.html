@@ -3,102 +3,90 @@
     <li><a ui-sref="user_register">Register</a></li>
 </ol>
 <hr/>
-<div ng-controller="RegisterController" class="container">
-    <div class="row main">
-        <div class="page-header">
-            <h1>Registration</h1>
-            <p>{{message}}</p>
-        </div>
-        <div class="main-login main-center">
-            <form class="form-horizontal" name="myForm" novalidate>
-                <div class="form-group">
-                    <label for="firstName" class="cols-sm-2 control-label">First name:</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="firstName" id="firstName"
-                                   placeholder="Enter your first name" ng-model="user.firstName" required
-                                   ng-minlength="2"/>
-                        </div>
-                        <div ng-show="myForm.$submitted || myForm.firstName.$touched">
-                            <div ng-show="myForm.firstName.$error.required" class="alert alert-danger">
-                                <br/>
-                                <p><strong>Required:</strong> Tell us your first name.</p>
-                            </div>
-                            <div ng-show="myForm.firstName.$error.minlenght">
-                                <br/>
-                                <p><strong>Invalid:</strong> The minimum lenght of first name is 2.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lastName" class="cols-sm-2 control-label">Last name:</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="lastName" id="lastName"
-                                   placeholder="Enter your last name" ng-model="user.lastName" required/>
-                        </div>
-                        <div ng-show="myForm.$submitted || myForm.lastName.$touched">
-                            <div ng-show="myForm.lastName.$error.required" class="alert alert-danger">
-                                <br/>
-                                <p><strong>Required:</strong> Tell us your last name.</p>
-                            </div>
-                            <div ng-show="myForm.lastName.$error.minlenght">
-                                <br/>
-                                <p><strong>Invalid:</strong> The minimum lenght of last name is 2.</p>
+<div class="panel panel-default" ng-controller="RegisterController">
+    <div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Register</div>
+    <div class="panel-body">
+        <!-- FORM -->
+        <!-- Warn: the form 'name' attribute is important and used to validate in Angular JS -->
+        <!-- Note: adding novalidate, disables HTML's default form validation like 'required' -->
+        <form name="new_user_form" class="form-horizontal" novalidate>
+            <div ng-hide="new_user_form.$submitted">
+                <!-- FIRST NAME FIELD -->
+                <!-- Note: combines ng-class with Bootstrap's form validation markup -->
+                <div ng-class="{'form-group form-group-ms has-feedback':true, 'has-error':new_user_form.firstName.$error.required && new_user_form.firstName.$touched, 'has-warning':new_user_form.firstName.$error.minlength, 'has-success':!new_user_form.firstName.$error.required && !new_user_form.firstName.$error.minlength}">
+                    <label for="firstName" class="col-sm-2 control-label">First name</label>
+                    <div class="col-sm-10">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="person.firstName" type="text" class="form-control input-sm" id="firstName" name="firstName" placeholder="First name" ng-minlength="2" required>
+                        <!-- Note: combines ng-show with Bootstrap's form icons -->
+                        <span ng-show="new_user_form.firstName.$error.required && new_user_form.firstName.$touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="new_user_form.firstName.$error.minlength" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="!new_user_form.firstName.$error.required && !new_user_form.firstName.$error.minlength" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="new_user_form.$submitted || new_user_form.firstName.$touched">
+                            <div class="has-error">
+                                <span ng-show="new_user_form.firstName.$error.required">The first name is mandatory</span>
+                                <!-- Message when the minimum character lenght of 2 is not met -->
+                                <span ng-show="new_user_form.firstName.$error.minlength">The first name should at least contain 2 characters</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email:</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="email" class="form-control" name="email" id="email"
-                                   placeholder="Enter your Email" ng-model="user.email" required/>
-                        </div>
-                        <div ng-show="myForm.$submitted || myForm.email.$touched">
-                            <div ng-show="myForm.email.$error.required" class="alert alert-danger">
-                                <br/>
-                                <p><strong>Required:</strong> Tell us your email address.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">Password:</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="password" id="password"
-                                   placeholder="Enter your Password" ng-model="user.password" required ng-minlength="5"
-                                   ng-maxlenght="144"/>
-                        </div>
-                        <div ng-show="myForm.$submitted || myForm.password.$touched">
-                            <div ng-show="myForm.password.$error.required" class="alert alert-danger">
-                                <br/>
-                                <p><strong>Required:</strong> Tell us your password.</p>
-                            </div>
-                            <div ng-show="myForm.password.$error.minlenght">
-                                <br/>
-                                <p><strong>Invalid:</strong> The minimum lenght of password is 5.</p>
-                            </div>
-                            <div ng-show="myForm.password.$error.minlenght">
-                                <br/>
-                                <p><strong>Invalid:</strong> The maximum lenght of password is 144.</p>
-                            </div>
+                <!-- LAST NAME FIELD -->
+                <!-- Note: combines ng-class with Bootstrap's form validation markup -->
+                <div ng-class="{'form-group form-group-md has-feedback':true, 'has-error':new_user_form.lastName.$error.required && new_user_form.lastName.$touched, 'has-warning':new_user_form.lastName.$error.minlength, 'has-success':!new_user_form.lastName.$error.required && !new_user_form.lastName.$error.minlength}">
+                    <label for="lastName" class="col-sm-2 control-label">Last name</label>
+                    <div class="col-sm-10">
+                        <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                        <input ng-model="person.lastName" type="text" class="form-control input-sm" id="lastName" name="lastName" placeholder="Last name" ng-minlength="2" required>
+                        <!-- Note: combines ng-show with Bootstrap's form icons -->
+                        <span ng-show="new_user_form.lastName.$error.required && new_user_form.lastName.$touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="new_user_form.lastName.$error.minlength" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="!new_user_form.lastName.$error.required && !new_user_form.lastName.$error.minlength" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="new_user_form.$submitted || new_user_form.lastName.$touched">
+                            <span ng-show="new_user_form.lastName.$error.required" class="has-error">The last name is mandatory</span>
+                            <span ng-show="new_user_form.lastName.$error.minlength">The last name should at least contain 2 characters</span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group ">
-                    <button type="button" class="btn btn-primary btn-lg btn-block login-button"
-                            ng-click="register(user)">Register
-                    </button>
+                <!-- EMAIL -->
+                <!-- Note: combimes ng-class with Bootstrap's form validation markup -->
+                <div ng-class="{'form-group form-group-md has-feedback':true, 'has-error':new_user_form.email.$error.required && new_user_form.email.$touched, 'has-warning':new_user_form.email.$error.email, 'has-success has-feedback':!new_user_form.email.$error.required && !new_user_form.email.$error.email}">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <!-- Warn: the input 'name' attribute is important and used to validate in Angular JS -->
+                            <input ng-model="person.email" type="email" class="form-control input-sm" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <!-- Note: Angular JS form validation -->
+                        <div ng-show="new_user_form.$submitted || new_user_form.email.$touched">
+                            <span ng-show="new_user_form.email.$error.required" class="has-error">The email address is mandatory.</span>
+                            <span ng-show="new_user_form.email.$error.email" class="has-warning">Invalid email address.</span>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
+                <!-- PASSWORD -->
+                <div class="form-group form-group-md">
+                    <label for="password" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input ng-model="person.password" type="password" class="form-control input-sm" id="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="col-sm-2"></div>
+                <button ng-disabled="!new_user_form.$valid" ng-click="registerNewUser(person);" type="submit" class="btn btn-info">Register</button>
+                <br/>
+                <br/>
+            </div>
+            <div class="row">
+                <div ng-show="getRegisterResponse() && new_user_form.$submitted" class="col-md-6 col-md-offset-3 alert alert-success">
+                    Thank you for registering!
+                </div>
+                <div ng-show="!getRegisterResponse() && new_user_form.$submitted" class="col-md-6 col-md-offset-3 alert alert-danger">
+                    There was an error registering you as a user.
+                </div>
+            </div>
+        </form>
     </div>
 </div>
