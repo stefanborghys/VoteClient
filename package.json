@@ -12,8 +12,8 @@
         "angular",
         "js",
         "course",
-        "chapter",
-        "6"
+        "voteclient",
+        "vote"
     ],
     "author": "Continuum Consulting",
     "license": "ISC",
