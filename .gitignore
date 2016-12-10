@@ -1,0 +1,11 @@
+# Dependencies
+node_modules
+bower_components
+
+# Optional npm cache directory
+.npm
+
+# Logs
+logs
+*.log
+npm-debug.log*
