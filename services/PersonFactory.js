@@ -1,5 +1,5 @@
 // Define the 'PersonFactory' factory on the 'angularCourseApp' module
-voteMachineApp.factory('PersonFactory', ['$http', '$log', function($http, $log) {
+voteMachineApp.factory('PersonFactory', ['$http', '$log', '$rootScope', function($http, $log, $rootScope) {
     "use strict";
 
     var methods = {};
@@ -33,6 +33,25 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', function($http, $log) 
         });
     }
 
+    var authenticatedPerson = null;
+
+    methods.isAuthenticated = function() {
+        if (authenticatedPerson == null) {
+            return false;
+        }
+        return authenticatedPerson;
+    }
+
+    methods.logout = function() {
+        authenticatedPerson = null;
+        notify();
+    }
+
+    methods.subscribe = function(scope, callback) {
+        var handler = $rootScope.$on('notifying-service-event', callback);
+        scope.$on('$destroy', handler);
+    };
+
     /**
      * Authenticates a person / user by email and password.
      *
@@ -50,7 +69,10 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', function($http, $log) 
                 "password": "12345"
             }
         }).then(function successCallback(response) {
-            // TODO: implement properly
+            authenticatedPerson = response.data;
+            notify();
+
+
             $log.debug("Authenticated successfully");
             return {
                 "success": true,
@@ -93,6 +115,8 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', function($http, $log) 
                 "password": "54321"
             }
         }).then(function successCallback(response) {
+            authenticatedPerson = response.data;
+            notify();
             // TODO: implement properly
             $log.debug("Updated a person successfully");
             return {

@@ -2,11 +2,18 @@
 var voteMachineApp = angular.module('voteMachineApp', ['ui.router']);
 
 voteMachineApp.controller('AuthenticationController', ['$scope', 'PersonFactory', function($scope, PersonFactory) {
+
     $scope.isLoggedIn = false;
 
     PersonFactory.subscribe($scope, function() {
-        $scope.isLoggedIn = true;
+        var authenticatedPerson = PersonFactory.isAuthenticated();
+        if (authenticatedPerson) {
+            $scope.isLoggedIn = true;
+        } else {
+            $scope.isLoggedIn = false;
+        }
     });
+
 }]);
 
 // Define the 'voteMachineApp' configuration
