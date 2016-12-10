@@ -3,6 +3,102 @@
     <li><a ui-sref="user_register">Register</a></li>
 </ol>
 <hr/>
-<div>
-    {{message}}
+<div ng-controller="RegisterController" class="container">
+    <div class="row main">
+        <div class="page-header">
+            <h1>Registration</h1>
+            <p>{{message}}</p>
+        </div>
+        <div class="main-login main-center">
+            <form class="form-horizontal" name="myForm" novalidate>
+                <div class="form-group">
+                    <label for="firstName" class="cols-sm-2 control-label">First name:</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="firstName" id="firstName"
+                                   placeholder="Enter your first name" ng-model="user.firstName" required
+                                   ng-minlength="2"/>
+                        </div>
+                        <div ng-show="myForm.$submitted || myForm.firstName.$touched">
+                            <div ng-show="myForm.firstName.$error.required" class="alert alert-danger">
+                                <br/>
+                                <p><strong>Required:</strong> Tell us your first name.</p>
+                            </div>
+                            <div ng-show="myForm.firstName.$error.minlenght">
+                                <br/>
+                                <p><strong>Invalid:</strong> The minimum lenght of first name is 2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="cols-sm-2 control-label">Last name:</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="lastName" id="lastName"
+                                   placeholder="Enter your last name" ng-model="user.lastName" required/>
+                        </div>
+                        <div ng-show="myForm.$submitted || myForm.lastName.$touched">
+                            <div ng-show="myForm.lastName.$error.required" class="alert alert-danger">
+                                <br/>
+                                <p><strong>Required:</strong> Tell us your last name.</p>
+                            </div>
+                            <div ng-show="myForm.lastName.$error.minlenght">
+                                <br/>
+                                <p><strong>Invalid:</strong> The minimum lenght of last name is 2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Your Email:</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="email" class="form-control" name="email" id="email"
+                                   placeholder="Enter your Email" ng-model="user.email" required/>
+                        </div>
+                        <div ng-show="myForm.$submitted || myForm.email.$touched">
+                            <div ng-show="myForm.email.$error.required" class="alert alert-danger">
+                                <br/>
+                                <p><strong>Required:</strong> Tell us your email address.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Password:</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" id="password"
+                                   placeholder="Enter your Password" ng-model="user.password" required ng-minlength="5"
+                                   ng-maxlenght="144"/>
+                        </div>
+                        <div ng-show="myForm.$submitted || myForm.password.$touched">
+                            <div ng-show="myForm.password.$error.required" class="alert alert-danger">
+                                <br/>
+                                <p><strong>Required:</strong> Tell us your password.</p>
+                            </div>
+                            <div ng-show="myForm.password.$error.minlenght">
+                                <br/>
+                                <p><strong>Invalid:</strong> The minimum lenght of password is 5.</p>
+                            </div>
+                            <div ng-show="myForm.password.$error.minlenght">
+                                <br/>
+                                <p><strong>Invalid:</strong> The maximum lenght of password is 144.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button type="button" class="btn btn-primary btn-lg btn-block login-button"
+                            ng-click="register(user)">Register
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
