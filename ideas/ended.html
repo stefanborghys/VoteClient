@@ -3,6 +3,31 @@
     <li><a ui-sref="ended_ideas">Ended</a></li>
 </ol>
 <hr/>
-<div>
-    {{message}}
+<div ng-controller="IdeasEndedController">
+    <table class="table table-condensed table-hover">
+        <tr>
+            <th ng-repeat="tableHeader in tableHeaders">
+                <button type="button" class="btn btn-default btn-xs" ng-click="tableHeader.reverse=!tableHeader.reverse">
+                    <span ng-class="{'glyphicon glyphicon-chevron-down': tableHeader.reverse, 'glyphicon glyphicon-chevron-up': !tableHeader.reverse}" aria-hidden="true"></span>
+                </button>
+                <button type="button" ng-class="{'btn btn-info btn-xs': tableHeader.selected, 'btn btn-default btn-xs': !tableHeader.selected}" ng-click="tableHeader.selected=!tableHeader.selected">
+                    {{tableHeader.name}}
+                </button>
+            </th>
+        </tr>
+        <tr ng-repeat="idea in endedIdeas | orderBy:orderByPredicates()">
+            <td>{{idea.title}}</td>
+            <td>{{idea.description}}</td>
+            <td>{{idea.author.firstName}} {{idea.author.lastName}}</td>
+            <td>{{idea.start | date:'dd/MM/yyyy'}}</td>
+            <td>{{idea.deadline | date:'dd/MM/yyyy'}}</td>
+            <td>
+                <div ng-repeat="option in idea.options"><span><i>{{option.label}}</i> - {{option.description}}</span></div>
+            </td>
+            <td>
+                <div ng-repeat="comment in idea.comments"><span><i>{{comment.author.firstName}} {{comment.author.lastName}}</i> - {{comment.text}}</span></div>
+            </td>
+        </tr>
+    </table>
 </div>
+
