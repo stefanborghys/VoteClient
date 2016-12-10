@@ -46,6 +46,8 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', '$rootScope', function
         scope.$on('$destroy', handler);
     };
 
+    var notify = function() { $rootScope.$emit('notifying-service-event'); };
+
     /**
      * Authenticates a person / user by email and password.
      *
@@ -64,6 +66,9 @@ voteMachineApp.factory('PersonFactory', ['$http', '$log', '$rootScope', function
             }
         }).then(function successCallback(response) {
             // TODO: implement properly
+            authenticatedPerson = response.data;
+            notify();
+
             $log.debug("Authenticated successfully");
             $log.debug(JSON.stringify(response));
             return {
