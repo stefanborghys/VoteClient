@@ -1,75 +1,69 @@
 // Define the 'PersonFactory' factory on the 'angularCourseApp' module
-voteMachineApp.factory('PersonFactory', ['$http', '$log', function($http, $log) {
+voteMachineApp.factory('PersonFactory', ['$http', '$log', '$rootScope', function($http, $log, $rootScope) {
     "use strict";
 
     var methods = {};
 
+    var notify = function() { $rootScope.$emit('notifying-service-event'); };
+
+    var authenticatedPerson = null;
+
     /**
      * Registers a new person / user.
      *
-     * @param person 	the person Object to register
+     * @param person    the person Object to register
      * @return true when successfull, otherwise false
      */
     methods.register = function(person) {
         return $http({
             method: 'POST',
             url: 'http://127.0.0.1:8080/person/register/',
-            // TODO: replace this example data Object by the person argument
-            data: {
-                "firstName": "eddie",
-                "lastName": "wally",
-                "email": "eddy@wally.be",
-                "password": "12345"
-            }
+            data: person
         }).then(function successCallback(response) {
-            // TODO: this POST request only return the 200 status code to indicate the registration was successfull
-            $log.debug("Registered successfully");
-            return true;
+            return response.data;
         }, function errorCallback(response) {
-            // Called asynchronously, when an error occurred:
-            $log.debug("Error occurred when registering a person: " + response.status + " - " + response.statusText);
-            return false;
+            return response.data;
         });
     }
+
+    methods.isAuthenticated = function() {
+        return false;
+    }
+
+    methods.subscribe = function(scope, callback) {
+        var handler = $rootScope.$on('notifying-service-event', callback);
+        scope.$on('$destroy', handler);
+    };
 
     /**
      * Authenticates a person / user by email and password.
      *
-     * @param email 	the user's email address
-     * @param password 	the users's password
+     * @param email     the user's email address
+     * @param password  the users's password
      * @return person Object
      */
     methods.authenticate = function(email, password) {
         return $http({
             method: 'POST',
-            url: 'http://127.0.0.1:8080/person/register/',
-            // TODO: replace this example data Object by the arguments
+            url: 'http://127.0.0.1:8080/person/authenticate/',
             data: {
-                "email": "eddy@wally.be",
-                "password": "12345"
+                "email": email,
+                "password": password
             }
         }).then(function successCallback(response) {
-            // TODO: implement properly
-            $log.debug("Authenticated successfully");
-            return {
-                "success": true,
-                "id": "582e220773775886298f8694",
-                "firstName": "eddie",
-                "lastName": "wally",
-                "email": "eddy@wally.be"
-            };
+            authenticatedPerson = response.data;
+            notify();
+            return response.data;
         }, function errorCallback(response) {
-            // TODO: create a proper fallback when authentication fails
-            $log.debug("Error occurred when authenticating a person: " + response.status + " - " + response.statusText);
-            return {};
+            return response.data;
         });
     }
 
     /**
      * Updates a person's data.
      *
-     * @param id 	the id of the person which needs to be updated
-     * @param updatedIdentifiablePerson 	Object which contains all data to process an update
+     * @param id    the id of the person which needs to be updated
+     * @param updatedIdentifiablePerson     Object which contains all data to process an update
      * @return the updated person Object
      */
     methods.update = function(id, updatedIdentifiablePerson) {

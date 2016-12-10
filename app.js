@@ -1,6 +1,14 @@
 // Define the 'voteMachineApp' module
 var voteMachineApp = angular.module('voteMachineApp', ['ui.router']);
 
+voteMachineApp.controller('AuthenticationController', ['$scope', 'PersonFactory', function($scope, PersonFactory) {
+    $scope.isLoggedIn = false;
+
+    PersonFactory.subscribe($scope, function() {
+        $scope.isLoggedIn = true;
+    });
+}]);
+
 // Define the 'voteMachineApp' configuration
 voteMachineApp.config(function($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /unknown
