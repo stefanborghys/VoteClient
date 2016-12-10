@@ -159,24 +159,23 @@ voteMachineApp.factory('IdeaFactory', ['$http', '$log', function($http, $log) {
      * @return the idea Object voted on
      */
     methods.vote = function(id, vote) {
-
-        var exampleVote = {
-            "optionId": "582e225373775886298f8698",
-            // TODO: voter contains authentication information
-            "voter": {
-                "id": "582e220773775886298f8694",
-                "email": "stefanborghys@gmail.com",
-                "password": "12345"
-            }
-        };
+        //
+        // var exampleVote = {
+        //     "optionId": "582e225373775886298f8698",
+        //     // TODO: voter contains authentication information
+        //     "voter": {
+        //         "id": "582e220773775886298f8694",
+        //         "email": "stefanborghys@gmail.com",
+        //         "password": "12345"
+        //     }
+        // };
 
 
         return $http({
-            method: 'PUT',
-            // TODO: add the id as a path param (ex. http://127.0.0.1:8080/idea/vote/584b53209e75220c6af87bfa)
-            url: 'http://127.0.0.1:8080/idea/vote/',
-            // TODO: add the comment Object as data
-        }).then(function successCallback(response) {
+                         method: 'PUT',
+                         url: 'http://127.0.0.1:8080/idea/vote/' + id,
+                         data: vote
+                     }).then(function successCallback(response) {
             // TODO: implement properly
             $log.debug("Voted on an idea successfully");
             return {
@@ -224,7 +223,7 @@ voteMachineApp.factory('IdeaFactory', ['$http', '$log', function($http, $log) {
             $log.debug("Error occurred when voting: " + response.status + " - " + response.statusText);
             return {};
         });
-    }
+    };
 
     /**
      * Find an Idea by id.
