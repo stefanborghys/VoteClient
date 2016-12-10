@@ -1,0 +1,30 @@
+{
+  "name": "chapter_6",
+  "description": "Angular JS Course - Chapter 6",
+  "main": "index.js",
+  "authors": [
+    "Continuum Consulting"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular",
+    "js",
+    "course",
+    "chapter",
+    "6"
+  ],
+  "homepage": "https://github.com/continuum-consulting/AngularJS",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.9",
+    "bootstrap": "^3.3.7",
+    "angular-ui-router": "^0.3.2"
+  }
+}

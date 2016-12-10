@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="voteMachineApp" class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Continuum Consulting Vote Machine App">
+    <title>Vote Machine App</title>
+    <!-- links -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- menu -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="ideas">
+                    <img alt="Continuum Consulting" src="img/continuum_consulting_logo.png" class="continuum-consulting-logo">
+                </a>
+                <p class="navbar-text">Vote Machine App</p>
+            </div>
+            <!-- -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a ui-sref="ideas" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideas <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="running_ideas"><span class="glyphicon glyphicon-ice-lolly" aria-hidden="true"></span> Running Ideas</a></li>
+                            <li><a ui-sref="ended_ideas"><span class="glyphicon glyphicon-ice-lolly-tasted" aria-hidden="true"></span> Ended Ideas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a ui-sref="user" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="user_profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
+                            <li><a ui-sref="user_ideas"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Proposed Ideas</a></li>
+                            <li><a ui-sref="user_logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <a class="btn btn-default btn-sm" ui-sref="user_sign_in" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign in</a>
+                    <a class="btn btn-default btn-sm" ui-sref="user_register" role="button"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> Register</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ui-view -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <!-- scripts -->
+    <script src="bower_components/Angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="app.js"></script>
+    <!-- services -->
+    <script src="services/OptionGroupsFactory.js"></script>
+    <script src="services/PersonFactory.js"></script>
+    <script src="services/OptionGroupFactory.js"></script>
+    <script src="services/IdeaFactory.js"></script>
+    <script src="services/IdeasFactory.js"></script>
+    <!-- idea controllers -->
+    <script src="ideas/IdeasController.js"></script>
+    <script src="ideas/IdeasEndedController.js"></script>
+    <script src="ideas/IdeasRunningController.js"></script>
+    <!-- user controllers -->
+    <script src="user/ProposedIdeasController.js"></script>
+    <script src="user/LogoutController.js"></script>
+    <script src="user/ProfileController.js"></script>
+    <script src="user/RegisterController.js"></script>
+    <script src="user/SignInController.js"></script>
+    <script src="user/UserController.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{
+    "name": "chapter_6",
+    "version": "1.0.0",
+    "description": "Angular JS Course - Chapter 6",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "bower install",
+        "start": "http-server",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "angular",
+        "js",
+        "course",
+        "chapter",
+        "6"
+    ],
+    "author": "Continuum Consulting",
+    "license": "ISC",
+    "devDependencies": {
+        "http-server": "^0.9.0"
+    }
+}
