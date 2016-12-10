@@ -11,65 +11,15 @@ voteMachineApp.factory('IdeaFactory', ['$http', '$log', function($http, $log) {
      * @return true when successfull, otherwise false
      */
     methods.propose = function(idea) {
-
-        // TODO: example idea to propose
-        var exampleIdea = {
-            "title": "My first idea",
-            "description": "My first description",
-            // TODO: the author contains data retrieved from authentication
-            "author": {
-                "id": "582e220773775886298f8694",
-                "email": "stefanborghys@gmail.com",
-                "password": "12345"
-            },
-            // Javascript Date .toISOString(); should be used to get this String represenation:
-            // Info: http://www.w3schools.com/jsref/jsref_toisostring.asp
-            "start": "2016-11-14T21:34:55",
-            "deadline": "2016-11-16T21:34:55",
-            "options": [{
-                "id": "582e225373775886298f8697",
-                "label": "nee",
-                "description": "Ik ga niet akkoord."
-            }, {
-                "id": "582e225373775886298f8698",
-                "label": "ja",
-                "description": "Ik ga akkoord."
-            }]
-        };
-
-
         return $http({
             method: 'POST',
-            url: 'http://127.0.0.1:8080/idea/propose/'
-                // TODO: set the data correctly
+            url: 'http://127.0.0.1:8080/idea/propose/',
+            data: idea
         }).then(function successCallback(response) {
-            // TODO: implement properly
             $log.debug("Proposed an idea successfully");
-            return {
-                "success": true,
-                "id": "584b50a79e75220c6af87bf9",
-                "title": "My first idea",
-                "description": "My first description",
-                "author": {
-                    "firstName": "stefan",
-                    "lastName": "borghys"
-                },
-                "start": "2016-12-14T21:34:55",
-                "deadline": "2016-12-16T21:34:55",
-                "creationDateTime": "2016-12-10T01:47:35.379",
-                "options": [{
-                    "id": "582e225373775886298f8697",
-                    "label": "ja",
-                    "description": "Ik ga akkoord."
-                }, {
-                    "id": "582e225373775886298f8698",
-                    "label": "nee",
-                    "description": "Ik ga niet akkoord."
-                }],
-                "comments": []
-            };
+            $log.debug(JSON.stringify(response));
+            return response.data;
         }, function errorCallback(response) {
-            // Called asynchronously, when an error occurred:
             $log.debug("Error occurred when proposing an idea: " + response.status + " - " + response.statusText);
             return {};
         });
