@@ -45,37 +45,37 @@ voteMachineApp.controller('IdeasEndedController', ['$scope', '$log', 'IdeasFacto
 
     $scope.tableHeaders = [{
         name: 'Title',
-        property: 'fields.title',
+        property: 'title',
         reverse: false,
         selected: true
     }, {
         name: 'description',
-        property: 'fields.description',
+        property: 'description',
         reverse: false,
         selected: false
     }, {
         name: 'Author',
-        property: 'fields.author',
+        property: 'author',
         reverse: false,
         selected: false
     }, {
         name: 'Start',
-        property: 'fields.start',
+        property: 'start',
         reverse: false,
         selected: false
     }, {
         name: 'Deadline',
-        property: 'fields.deadline',
+        property: 'deadline',
         reverse: false,
         selected: false
     }, {
         name: 'Options',
-        property: 'fields.options',
+        property: 'options',
         reverse: false,
         selected: false
     }, {
         name: 'Comments',
-        property: 'fields.comments',
+        property: 'comments',
         reverse: false,
         selected: false
     }];
