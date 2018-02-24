@@ -1,5 +1,5 @@
 // Define the 'ProposedIdeasController' controller on the 'voteMachineApp' module
-voteMachineApp.controller('ProposedIdeasController', ['$scope', '$log', '$rootScope', 'IdeaFactory', function($scope, $log, $rootScope, IdeaFactory) {
+voteMachineApp.controller('ProposedIdeasController', ['$scope', '$log', '$rootScope', 'IdeaFactory', 'PersonFactory', function($scope, $log, $rootScope, IdeaFactory, PersonFactory) {
     "use strict";
 
     $scope.startDate = new Date();
@@ -27,18 +27,21 @@ voteMachineApp.controller('ProposedIdeasController', ['$scope', '$log', '$rootSc
             $scope.message = 'Idea created.';
         });
 
+        if (authenticatedPerson == null) {
+            authenticatedPerson = PersonFactory.isAuthenticated();
+        }
+
         $scope.idea = createNewIdea();
+        $log.debug($scope.idea);
     };
+
+    var authenticatedPerson = null;
 
     function createNewIdea() {
         return {
             "title": '',
             "description": '',
-            "author": {
-                "id": "582e220773775886298f8694",
-                "email": "stefanborghys@gmail.com",
-                "password": "12345"
-            },
+            "author": authenticatedPerson,
             // Javascript Date .toISOString(); should be used to get this String represenation:
             // Info: http://www.w3schools.com/jsref/jsref_toisostring.asp
             "start": $scope.startDate.toISOString(),
@@ -54,4 +57,14 @@ voteMachineApp.controller('ProposedIdeasController', ['$scope', '$log', '$rootSc
             }]
         };;
     }
+
+    PersonFactory.subscribe($scope, function() {
+        var authenticatedPerson2 = PersonFactory.isAuthenticated();
+        if (angular.isObject(authenticatedPerson2)) {
+            authenticatedPerson = authenticatedPerson2;
+        } else {
+            authenticatedPerson = {};
+        }
+    });
+
 }]);
